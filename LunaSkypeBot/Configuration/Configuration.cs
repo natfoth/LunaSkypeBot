@@ -24,6 +24,7 @@ namespace LunaSkypeBot.Configuration
         public string ChatName { get; set; } = "";
 
         public bool SFWOnly { get; set; } = true;
+        public int MinSearchScore { get; set; } = 0;
         public bool CelestiaRetaliation { get; set; } = false;
         public Dictionary<string, int> AccessLevels { get; set; } = new Dictionary<string, int>(); 
 

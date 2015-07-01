@@ -24,6 +24,8 @@ namespace LunaSkypeBot.Configuration
         public Dictionary<string, int> Permissions { get; set; } = new Dictionary<string, int>();
         public List<string> GlobalAdmins { get; set; } = new List<string>() { "natfoth", "oliver.cbaker" };
 
+        public List<string> LunaOfTheDayList { get; set; } = new List<string>(); 
+
 
         #region Load & Save
         public static GlobalConfiguration LoadConfig(string path = "Configs\\GlobalConfig.config")

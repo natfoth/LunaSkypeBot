@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LunaSkypeBot.Configuration;
-using LunaSkypeBot.Utils;
+using LunaSkypeBot.Utillities;
 using SKYPE4COMLib;
 
 namespace LunaSkypeBot.Commands
@@ -26,6 +26,7 @@ namespace LunaSkypeBot.Commands
 
                 newDict.Add("SFWOnly".ToLowerInvariant(), 100);
                 newDict.Add("CelestiaRetaliation".ToLowerInvariant(), 100);
+                newDict.Add("MinSearchScore".ToLowerInvariant(), 100);
 
                 return newDict;
             }

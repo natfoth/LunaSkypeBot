@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using LunaSkypeBot.Configuration;
-using LunaSkypeBot.Utils;
+using LunaSkypeBot.Utillities;
 using SKYPE4COMLib;
 
 namespace LunaSkypeBot.Commands

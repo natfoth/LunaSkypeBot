@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LunaSkypeBot.Utils;
+using LunaSkypeBot.Utillities;
 using SKYPE4COMLib;
 
 namespace LunaSkypeBot.Commands
@@ -17,6 +17,8 @@ namespace LunaSkypeBot.Commands
         }
 
         public override List<string> Commands => new List<string>() { "AddQuote" };
+
+        public override bool AdminCommand => true;
 
 
         public override async Task<bool> ProcessCommand(ChatMessage msg, string command)

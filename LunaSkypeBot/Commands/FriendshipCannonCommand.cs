@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using LunaSkypeBot.Configuration;
+using LunaSkypeBot.Utillities;
 using SKYPE4COMLib;
 
 namespace LunaSkypeBot.Commands
@@ -30,19 +31,35 @@ namespace LunaSkypeBot.Commands
 
             _msg = msg;
 
-            await SendMessage("Orbital Friendship Cannon - Online");
+            var message = msg.SendBotMessage("Orbital Friendship Cannon - Online");
 
             await Task.Delay(TimeSpan.FromMilliseconds(3000));
 
-            await SendMessage("Acquiring Target...");
+            message.EditMessage("Acquiring Target.");
 
             await Task.Delay(TimeSpan.FromMilliseconds(2000));
 
-            await SendMessage("Target Locked");
+            message.EditMessage("Acquiring Target..");
+
+            await Task.Delay(TimeSpan.FromMilliseconds(500));
+
+            message.EditMessage("Acquiring Target...");
+
+            await Task.Delay(TimeSpan.FromMilliseconds(500));
+
+            message.EditMessage("Acquiring Target...");
+
+            await Task.Delay(TimeSpan.FromMilliseconds(500));
+
+            message.EditMessage("Acquiring Target...");
+
+            await Task.Delay(TimeSpan.FromMilliseconds(500));
+
+            message.EditMessage("Target Locked");
 
             await Task.Delay(TimeSpan.FromMilliseconds(2000));
 
-            await SendMessage("Firing : " + "http://www.allmystery.de/i/t1ce2b1_FiringOrbitalFriendshipCannon.gif?bc");
+            message.EditMessage("Firing : " + "http://www.allmystery.de/i/t1ce2b1_FiringOrbitalFriendshipCannon.gif?bc");
 
             int asdf = 3;
 
@@ -53,10 +70,6 @@ namespace LunaSkypeBot.Commands
             return true;
         }
 
-        public async Task SendMessage(string message)
-        {
-            _msg.Chat.SendMessage(Program.Form.Nickname + ": " + message);
-        }
 
         private void AcquireTarget(Object state)
         {

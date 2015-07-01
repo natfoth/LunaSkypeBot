@@ -10,23 +10,34 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LunaSkypeBot.Commands;
 using LunaSkypeBot.Configuration;
+using LunaSkypeBot.Database;
+using LunaSkypeBot.Pulses;
 using Nito.AsyncEx;
 using SKYPE4COMLib;
 
 namespace LunaSkypeBot
 {
+    public delegate void PulseDelegate();
+
     public partial class Form1 : Form
     {
-        private Skype skype;
+        public Skype skype;
         private const string trigger = "~"; // Say !help
         private LunaRandom _random;
 
         public List<string> ListOfAllQuotes = new List<string>(); 
         public List<CommandProcessor> CommandProcessors = new List<CommandProcessor>();
+
+        public event PulseDelegate Pulsed;
+
+        public PulseDelegate Pulser = DelegateMethod;
+
+        private System.Timers.Timer _pulse;
 
         public string Nickname
         {
@@ -76,6 +87,25 @@ namespace LunaSkypeBot
             }
 
             SetupCommandProcessors();
+
+            _pulse = new System.Timers.Timer();
+            _pulse.Elapsed += Pulse;
+            _pulse.Interval = 1000; // in miliseconds
+            _pulse.Start();
+
+        }
+
+        private void Pulse(object sender, EventArgs e)
+        {
+            _pulse.Stop();
+            _pulse.Start();
+
+            Pulsed?.Invoke();
+        }
+
+        public static void DelegateMethod()
+        {
+            int bob = 1;
         }
 
         private void SetupCommandProcessors()
@@ -89,6 +119,14 @@ namespace LunaSkypeBot
             new SettingsCommand(ref CommandProcessors);
             new AddQuoteCommand(ref CommandProcessors);
             new SetPermissionsCommand(ref CommandProcessors);
+            new MisCommands(ref CommandProcessors);
+            new RandomCommand(ref CommandProcessors);
+            new SearchCommand(ref CommandProcessors);
+            new LunaOfTheDayCommand(ref CommandProcessors);
+
+
+            //pulsers
+            new LunaOfTheDay(this);
             
 
             int bob = 1;
@@ -101,7 +139,7 @@ namespace LunaSkypeBot
         {
             if (true)
             {
-                Debug.WriteLine(string.Format("{0} : {1}", msg.Sender.FullName, msg.Sender.Handle));
+                Debug.WriteLine(string.Format("{0} : {1} - {2}", msg.Sender.FullName, msg.Sender.Handle, status));
             }
 
             if (msg.Body.IndexOf(trigger, StringComparison.Ordinal) != 0 ||
